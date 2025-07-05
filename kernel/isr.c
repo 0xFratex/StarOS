@@ -25,7 +25,27 @@ void isr_handler(registers_t regs) {
         
     } else {
         // Se não houver um manipulador registrado, avisa no console.
-        kernel_print("Unhandled interrupt!\n");
+        kernel_print("Unhandled interrupt: ");
+        // Convert int_no to string and print it
+        char str_int_no[4]; // Max 3 digits for 0-255, plus null terminator
+        int num = regs.int_no;
+        int i = 0;
+        if (num == 0) {
+            str_int_no[i++] = '0';
+        } else {
+            char temp[4];
+            int temp_i = 0;
+            while (num > 0) {
+                temp[temp_i++] = (num % 10) + '0';
+                num /= 10;
+            }
+            while (temp_i > 0) {
+                str_int_no[i++] = temp[--temp_i];
+            }
+        }
+        str_int_no[i] = '\0';
+        kernel_print(str_int_no);
+        kernel_print("\n");
     }
 }
 
