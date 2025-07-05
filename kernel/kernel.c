@@ -140,3 +140,40 @@ void kernel_main(void) {
         old_my = my;
     }
 }
+
+// Helper function to print a number in hexadecimal
+void kernel_print_hex(u32 n) {
+    char hex_chars[] = "0123456789ABCDEF";
+    kernel_print("0x");
+    if (n == 0) {
+        kernel_print_char('0');
+        return;
+    }
+    // Print nibbles from most significant to least significant
+    for (int i = 7; i >= 0; i--) {
+        unsigned char nibble = (n >> (i * 4)) & 0xF;
+        kernel_print_char(hex_chars[nibble]);
+    }
+}
+
+// Helper function to print a number in decimal
+void kernel_print_dec(u32 n) {
+    if (n == 0) {
+        kernel_print_char('0');
+        return;
+    }
+    char buffer[11]; // Max 10 digits for u32 + null terminator
+    int i = 0;
+    while (n > 0) {
+        buffer[i++] = (n % 10) + '0';
+        n /= 10;
+    }
+    buffer[i] = '\0';
+    // Reverse the buffer
+    for (int j = 0; j < i / 2; j++) {
+        char temp = buffer[j];
+        buffer[j] = buffer[i - j - 1];
+        buffer[i - j - 1] = temp;
+    }
+    kernel_print(buffer);
+}
