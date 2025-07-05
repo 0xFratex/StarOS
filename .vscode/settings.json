@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "isr.h": "c",
+        "keyboard.h": "c",
+        "ports.h": "c"
+    }
+}

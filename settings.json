@@ -1,0 +1,10 @@
+{
+    "os_name": "StarOS",
+    "version": "0.0.1",
+    "debug_mode": true,
+    "video": {
+      "width": 800,
+      "height": 600,
+      "bpp": 32
+    }
+  }
